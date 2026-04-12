@@ -1,13 +1,15 @@
-# Brings a back button to a resource view/edit page
+# Filament back button
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/marcelweidum/filament-back-button.svg?style=flat-square)](https://packagist.org/packages/marcelweidum/filament-back-button)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/marcelweidum/filament-back-button/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/marcelweidum/filament-back-button/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/marcelweidum/filament-back-button/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/marcelweidum/filament-back-button/actions?query=workflow%3A"Fix+PHP+code+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/marcelweidum/filament-back-button.svg?style=flat-square)](https://packagist.org/packages/marcelweidum/filament-back-button)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/marcelweidum/filament-back-button/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/marcelweidum/filament-back-button/actions?query=workflow%3A"Fix+PHP+code+styling"+branch%3Amain)
+![Filament 3.x](https://img.shields.io/badge/Filament-3.x-EBB304)
+![Filament 4.x](https://img.shields.io/badge/Filament-4.x-007ec6)
+![Filament 5.x](https://img.shields.io/badge/Filament-5.x-44cc11)
 
+Brings a back button to a resource view/edit page
 
-
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+[Cover]
 
 ## Installation
 
@@ -24,13 +26,6 @@ After setting up a custom theme add the plugin's views to your theme css file or
 
 ```css
 @source '../../../../vendor/marcelweidum/filament-back-button/resources/**/*.blade.php';
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="filament-back-button-migrations"
-php artisan migrate
 ```
 
 You can publish the config file with:
@@ -51,23 +46,6 @@ This is the contents of the published config file:
 return [
 ];
 ```
-
-## Usage
-
-```php
-$backButton = new MarcelWeidum\BackButton();
-echo $backButton->echoPhrase('Hello, MarcelWeidum!');
-```
-
-## Testing
-
-```bash
-composer test
-```
-
-## Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
 ## Contributing
 
