@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace MarcelWeidum\BackButton\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class BackButtonCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'filament-back-button';
 
     public $description = 'My command';
 

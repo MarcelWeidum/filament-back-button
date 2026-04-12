@@ -1,5 +1,5 @@
 <?php
 
-use VendorName\Skeleton\Tests\TestCase;
+use MarcelWeidum\BackButton\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);
