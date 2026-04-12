@@ -4,16 +4,6 @@ declare(strict_types=1);
 
 namespace MarcelWeidum\BackButton;
 
-use Filament\Support\Assets\AlpineComponent;
-use Filament\Support\Assets\Asset;
-use Filament\Support\Assets\Css;
-use Filament\Support\Assets\Js;
-use Filament\Support\Facades\FilamentAsset;
-use Filament\Support\Facades\FilamentIcon;
-use Illuminate\Filesystem\Filesystem;
-use Livewire\Features\SupportTesting\Testable;
-use MarcelWeidum\BackButton\Commands\BackButtonCommand;
-use MarcelWeidum\BackButton\Testing\TestsBackButton;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -32,7 +22,7 @@ final class BackButtonServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package->name(self::$name)
-            ->hasInstallCommand(function (InstallCommand $command) {
+            ->hasInstallCommand(function (InstallCommand $command): void {
                 $command
                     ->publishConfigFile()
                     ->askToStarRepoOnGitHub('marcelweidum/filament-back-button');
@@ -40,7 +30,7 @@ final class BackButtonServiceProvider extends PackageServiceProvider
 
         $configFileName = $package->shortName();
 
-        if (file_exists($package->basePath("/../config/{$configFileName}.php"))) {
+        if (file_exists($package->basePath(sprintf('/../config/%s.php', $configFileName)))) {
             $package->hasConfigFile();
         }
 
