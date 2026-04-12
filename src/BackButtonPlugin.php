@@ -1,12 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelWeidum\BackButton;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 
-class BackButtonPlugin implements Plugin
+final class BackButtonPlugin implements Plugin
 {
+    public static function make(): static
+    {
+        return app(self::class);
+    }
+
+    public static function get(): static
+    {
+        /** @var static $plugin */
+        $plugin = filament(app(static::class)->getId());
+
+        return $plugin;
+    }
+
     public function getId(): string
     {
         return 'filament-back-button';
@@ -20,18 +35,5 @@ class BackButtonPlugin implements Plugin
     public function boot(Panel $panel): void
     {
         //
-    }
-
-    public static function make(): static
-    {
-        return app(static::class);
-    }
-
-    public static function get(): static
-    {
-        /** @var static $plugin */
-        $plugin = filament(app(static::class)->getId());
-
-        return $plugin;
     }
 }

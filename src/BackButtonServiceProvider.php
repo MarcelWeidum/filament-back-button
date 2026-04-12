@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelWeidum\BackButton;
 
 use Filament\Support\Assets\AlpineComponent;
@@ -10,13 +12,13 @@ use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
 use Livewire\Features\SupportTesting\Testable;
+use MarcelWeidum\BackButton\Commands\BackButtonCommand;
+use MarcelWeidum\BackButton\Testing\TestsBackButton;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use MarcelWeidum\BackButton\Commands\BackButtonCommand;
-use MarcelWeidum\BackButton\Testing\TestsBackButton;
 
-class BackButtonServiceProvider extends PackageServiceProvider
+final class BackButtonServiceProvider extends PackageServiceProvider
 {
     public static string $name = 'filament-back-button';
 
@@ -29,7 +31,7 @@ class BackButtonServiceProvider extends PackageServiceProvider
          *
          * More info: https://github.com/spatie/laravel-package-tools
          */
-        $package->name(static::$name)
+        $package->name(self::$name)
             ->hasCommands($this->getCommands())
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
@@ -54,7 +56,7 @@ class BackButtonServiceProvider extends PackageServiceProvider
         }
 
         if (file_exists($package->basePath('/../resources/views'))) {
-            $package->hasViews(static::$viewNamespace);
+            $package->hasViews(self::$viewNamespace);
         }
     }
 
@@ -78,7 +80,7 @@ class BackButtonServiceProvider extends PackageServiceProvider
 
         // Handle Stubs
         if (app()->runningInConsole()) {
-            foreach (app(Filesystem::class)->files(__DIR__ . '/../stubs/') as $file) {
+            foreach (app(Filesystem::class)->files(__DIR__.'/../stubs/') as $file) {
                 $this->publishes([
                     $file->getRealPath() => base_path("stubs/filament-back-button/{$file->getFilename()}"),
                 ], 'filament-back-button-stubs');
@@ -86,7 +88,7 @@ class BackButtonServiceProvider extends PackageServiceProvider
         }
 
         // Testing
-        Testable::mixin(new TestsBackButton);
+        Testable::mixin(new TestsBackButton());
     }
 
     protected function getAssetPackageName(): ?string

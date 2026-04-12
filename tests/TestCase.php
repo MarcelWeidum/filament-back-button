@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelWeidum\BackButton\Tests;
 
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
@@ -16,12 +18,12 @@ use Filament\Widgets\WidgetsServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Livewire\LivewireServiceProvider;
+use MarcelWeidum\BackButton\BackButtonServiceProvider;
 use Orchestra\Testbench\Concerns\WithWorkbench;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
-use MarcelWeidum\BackButton\BackButtonServiceProvider;
 
-class TestCase extends Orchestra
+final class TestCase extends Orchestra
 {
     use LazilyRefreshDatabase;
     use WithWorkbench;
@@ -31,8 +33,13 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'MarcelWeidum\\BackButton\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
+            fn (string $modelName) => 'MarcelWeidum\\BackButton\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
+    }
+
+    public function getEnvironmentSetUp($app): void
+    {
+        $app['config']->set('database.default', 'testing');
     }
 
     protected function getPackageProviders($app)
@@ -59,13 +66,8 @@ class TestCase extends Orchestra
         return $providers;
     }
 
-    public function getEnvironmentSetUp($app): void
-    {
-        $app['config']->set('database.default', 'testing');
-    }
-
     protected function defineDatabaseMigrations(): void
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
     }
 }

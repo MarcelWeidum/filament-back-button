@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelWeidum\BackButton\Commands;
 
 use Illuminate\Console\Command;
 
-class BackButtonCommand extends Command
+final class BackButtonCommand extends Command
 {
     public $signature = 'filament-back-button';
 

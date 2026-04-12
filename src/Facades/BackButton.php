@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelWeidum\BackButton\Facades;
 
 use Illuminate\Support\Facades\Facade;
@@ -7,7 +9,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @see \MarcelWeidum\BackButton\BackButton
  */
-class BackButton extends Facade
+final class BackButton extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
