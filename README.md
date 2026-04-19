@@ -48,8 +48,14 @@ This is the contents of the published config file:
 
 ```php
 return [
+    'all_resources' => true,
+    'resources' => [
+        // App\Filament\Resources\UserResource::class,
+    ],
 ];
 ```
+
+Set `all_resources` to `false` to only show the back button on specific Filament resources listed in `resources`.
 
 ## Contributing
 

@@ -8,6 +8,7 @@ use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Filament\Support\Facades\FilamentView;
 use Filament\View\PanelsRenderHook;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -40,14 +41,48 @@ final class BackButtonPlugin implements Plugin
     {
         FilamentView::registerRenderHook(
             PanelsRenderHook::PAGE_HEADER_HEADING_BEFORE,
-            function ($scopes): View|string {
-                $isEditOrView = collect($scopes)->contains(
+            function ($scopes): ?View {
+                $scopes = collect($scopes);
+
+                $isEditOrView = $scopes->contains(
                     fn (string $scope) => Str::contains($scope, ['\\Pages\\Edit', '\\Pages\\View'])
                 );
 
-                return $isEditOrView
-                    ? view('filament-back-button::back-button') : '';
+                if (! $isEditOrView || ! $this->shouldRenderForScopes($scopes)) {
+                    return null;
+                }
+
+                return view('filament-back-button::back-button');
             }
         );
+    }
+
+    private function shouldRenderForScopes(Collection $scopes): bool
+    {
+        if (config('back-button.all_resources', true)) {
+            return true;
+        }
+
+        $allowedResources = collect(config('back-button.resources', []));
+
+        if ($allowedResources->isEmpty()) {
+            return false;
+        }
+
+        return $scopes
+            ->map(fn (string $scope): ?string => $this->resolveResourceFromScope($scope))
+            ->filter()
+            ->contains(fn (string $resource): bool => $allowedResources->contains($resource));
+    }
+
+    private function resolveResourceFromScope(string $scope): ?string
+    {
+        if (! Str::contains($scope, '\\Resources\\') || ! Str::contains($scope, '\\Pages\\')) {
+            return null;
+        }
+
+        [$resource] = explode('\\Pages\\', $scope);
+
+        return $resource;
     }
 }

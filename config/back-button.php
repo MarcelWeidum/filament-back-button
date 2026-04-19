@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-// config for MarcelWeidum/BackButton
 return [
-
+    'all_resources' => true,
+    'resources' => [
+        //
+    ],
 ];
