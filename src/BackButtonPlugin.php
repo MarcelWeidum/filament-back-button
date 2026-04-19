@@ -8,6 +8,7 @@ use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Filament\Support\Facades\FilamentView;
 use Filament\View\PanelsRenderHook;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 final class BackButtonPlugin implements Plugin
@@ -39,7 +40,14 @@ final class BackButtonPlugin implements Plugin
     {
         FilamentView::registerRenderHook(
             PanelsRenderHook::PAGE_HEADER_HEADING_BEFORE,
-            fn (): View => view('filament-back-button::back-button'),
+            function ($scopes): View|string {
+                $isEditOrView = collect($scopes)->contains(
+                    fn (string $scope) => Str::contains($scope, ['\\Pages\\Edit', '\\Pages\\View'])
+                );
+
+                return $isEditOrView
+                    ? view('filament-back-button::back-button') : '';
+            }
         );
     }
 }
