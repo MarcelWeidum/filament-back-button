@@ -6,6 +6,9 @@ namespace MarcelWeidum\BackButton;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Filament\Support\Facades\FilamentView;
+use Filament\View\PanelsRenderHook;
+use Illuminate\View\View;
 
 final class BackButtonPlugin implements Plugin
 {
@@ -34,6 +37,9 @@ final class BackButtonPlugin implements Plugin
 
     public function boot(Panel $panel): void
     {
-        //
+        FilamentView::registerRenderHook(
+            PanelsRenderHook::PAGE_HEADER_HEADING_BEFORE,
+            fn (): View => view('filament-back-button::back-button'),
+        );
     }
 }
