@@ -9,7 +9,11 @@
 
 Brings a back button to a resource view/edit page
 
-[Cover]
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="art/cover-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="art/cover-light.png">
+  <img alt="Filament Back Button cover" src="art/cover-light.png">
+</picture>
 
 ## Installation
 
