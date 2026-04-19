@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/marcelweidum/filament-back-button.svg?style=flat-square)](https://packagist.org/packages/marcelweidum/filament-back-button)
 [![Total Downloads](https://img.shields.io/packagist/dt/marcelweidum/filament-back-button.svg?style=flat-square)](https://packagist.org/packages/marcelweidum/filament-back-button)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/marcelweidum/filament-back-button/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/marcelweidum/filament-back-button/actions?query=workflow%3A"Fix+PHP+code+styling"+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/marcelweidum/filament-back-button/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/marcelweidum/filament-back-button/actions?query=workflow%3A"Fix+PHP+code+styling"+branch%3Amaster)
 ![Filament 3.x](https://img.shields.io/badge/Filament-3.x-EBB304)
 ![Filament 4.x](https://img.shields.io/badge/Filament-4.x-007ec6)
 ![Filament 5.x](https://img.shields.io/badge/Filament-5.x-44cc11)
