@@ -3,8 +3,8 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/marcelweidum/filament-back-button.svg?style=flat-square)](https://packagist.org/packages/marcelweidum/filament-back-button)
 [![Total Downloads](https://img.shields.io/packagist/dt/marcelweidum/filament-back-button.svg?style=flat-square)](https://packagist.org/packages/marcelweidum/filament-back-button)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/marcelweidum/filament-back-button/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/marcelweidum/filament-back-button/actions?query=workflow%3A"Fix+PHP+code+styling"+branch%3Amain)
-![Filament 4.10.3](https://img.shields.io/badge/Filament-4.10.3-007ec6)
-![Filament 5.5.3](https://img.shields.io/badge/Filament-5.5.3-44cc11)
+![Filament 4.11.x](https://img.shields.io/badge/Filament-4.11.x-007ec6)
+![Filament 5.6.x](https://img.shields.io/badge/Filament-5.6.x-44cc11)
 
 Brings a back button to a resource view/edit page
 
