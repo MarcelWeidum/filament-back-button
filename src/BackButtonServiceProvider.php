@@ -28,10 +28,8 @@ final class BackButtonServiceProvider extends PackageServiceProvider
                     ->askToStarRepoOnGitHub('marcelweidum/filament-back-button');
             });
 
-        $configFileName = $package->shortName();
-
-        if (file_exists($package->basePath(sprintf('/../config/%s.php', $configFileName)))) {
-            $package->hasConfigFile();
+        if (file_exists($package->basePath('/../config/back-button.php'))) {
+            $package->hasConfigFile('back-button');
         }
 
         if (file_exists($package->basePath('/../resources/views'))) {
