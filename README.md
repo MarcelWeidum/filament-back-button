@@ -8,6 +8,9 @@
 
 Brings a back button to a resource view/edit page
 
+> [!CAUTION]
+> The current release is a **beta** release — use it cautiously in production.
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="art/cover-dark.png">
   <source media="(prefers-color-scheme: light)" srcset="art/cover-light.png">
