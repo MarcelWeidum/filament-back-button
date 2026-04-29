@@ -6,6 +6,8 @@ namespace MarcelWeidum\BackButton;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Filament\Resources\Pages\EditRecord;
+use Filament\Resources\Pages\ViewRecord;
 use Filament\Support\Facades\FilamentView;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Support\Collection;
@@ -40,12 +42,12 @@ final class BackButtonPlugin implements Plugin
     public function boot(Panel $panel): void
     {
         FilamentView::registerRenderHook(
-            PanelsRenderHook::PAGE_HEADER_HEADING_BEFORE,
+            $this->getPageHeaderRenderHook(),
             function ($scopes): ?View {
                 $scopes = collect($scopes);
 
                 $isEditOrView = $scopes->contains(
-                    fn (string $scope) => Str::contains($scope, ['\\Pages\\Edit', '\\Pages\\View'])
+                    fn (string $scope): bool => $this->isResourceEditOrViewPage($scope)
                 );
 
                 if (! $isEditOrView || ! $this->shouldRenderForScopes($scopes)) {
@@ -57,32 +59,73 @@ final class BackButtonPlugin implements Plugin
         );
     }
 
+    private function getPageHeaderRenderHook(): string
+    {
+        $headingBeforeHook = PanelsRenderHook::class.'::PAGE_HEADER_HEADING_BEFORE';
+
+        if (defined($headingBeforeHook)) {
+            $hook = constant($headingBeforeHook);
+
+            if (is_string($hook)) {
+                return $hook;
+            }
+        }
+
+        return PanelsRenderHook::PAGE_HEADER_ACTIONS_BEFORE;
+    }
+
     private function shouldRenderForScopes(Collection $scopes): bool
     {
         if (config('back-button.all_resources', true)) {
             return true;
         }
 
-        $allowedResources = collect(config('back-button.resources', []));
+        $allowedResources = collect(config('back-button.resources', []))
+            ->map(fn (string $resource): string => $this->normalizeResourceClass($resource));
 
         if ($allowedResources->isEmpty()) {
             return false;
         }
 
         return $scopes
-            ->map(fn (string $scope): ?string => $this->resolveResourceFromScope($scope))
+            ->flatMap(fn (string $scope): array => $this->resolveResourcesFromScope($scope))
             ->filter()
-            ->contains(fn (string $resource): bool => $allowedResources->contains($resource));
+            ->contains(fn (string $resource): bool => $allowedResources->contains(
+                $this->normalizeResourceClass($resource),
+            ));
     }
 
-    private function resolveResourceFromScope(string $scope): ?string
+    private function isResourceEditOrViewPage(string $scope): bool
     {
-        if (! Str::contains($scope, '\\Resources\\') || ! Str::contains($scope, '\\Pages\\')) {
-            return null;
+        if (is_a($scope, EditRecord::class, true) || is_a($scope, ViewRecord::class, true)) {
+            return true;
         }
 
-        [$resource] = explode('\\Pages\\', $scope);
+        return Str::contains($scope, ['\\Pages\\Edit', '\\Pages\\View']);
+    }
 
-        return $resource;
+    /**
+     * @return array<string>
+     */
+    private function resolveResourcesFromScope(string $scope): array
+    {
+        if (! Str::contains($scope, '\\Resources\\')) {
+            return [];
+        }
+
+        $resources = [$scope];
+
+        if (Str::contains($scope, '\\Pages\\')) {
+            [$resource] = explode('\\Pages\\', $scope);
+
+            $resources[] = $resource;
+        }
+
+        return $resources;
+    }
+
+    private function normalizeResourceClass(string $resource): string
+    {
+        return mb_ltrim($resource, '\\');
     }
 }
