@@ -64,11 +64,7 @@ final class BackButtonPlugin implements Plugin
         $headingBeforeHook = PanelsRenderHook::class.'::PAGE_HEADER_HEADING_BEFORE';
 
         if (defined($headingBeforeHook)) {
-            $hook = constant($headingBeforeHook);
-
-            if (is_string($hook)) {
-                return $hook;
-            }
+            return constant($headingBeforeHook);
         }
 
         return PanelsRenderHook::PAGE_HEADER_ACTIONS_BEFORE;
